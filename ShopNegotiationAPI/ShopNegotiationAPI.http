@@ -1,0 +1,6 @@
+@ShopNegotiationAPI_HostAddress = http://localhost:5136
+
+GET {{ShopNegotiationAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
