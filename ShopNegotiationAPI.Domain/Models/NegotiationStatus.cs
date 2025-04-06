@@ -6,5 +6,5 @@ public enum NegotiationStatus
     Accepted,
     Rejected,
     Expired,
-    Canceled
+    Closed
 }

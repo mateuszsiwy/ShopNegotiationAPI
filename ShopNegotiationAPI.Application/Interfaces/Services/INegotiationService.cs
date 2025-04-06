@@ -14,6 +14,6 @@ public interface INegotiationService
     
     Task<Negotiation> ProcessNegotiationAsync(int negotiationId, decimal proposedPrice);
     Task<Negotiation> FinalizeNegotiationAsync(int negotiationId, bool isAccepted);
-    Task<IEnumerable<Negotiation>> GetActiveNegotiationsAsync();
+    Task<IEnumerable<Negotiation>> GetPendingNegotiationsAsync();
     Task<IEnumerable<Negotiation>> GetExpiredNegotiationsAsync();
 }
