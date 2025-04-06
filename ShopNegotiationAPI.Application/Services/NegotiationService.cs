@@ -71,7 +71,18 @@ public class NegotiationService : INegotiationService
 
     public async Task<Negotiation> FinalizeNegotiationAsync(int negotiationId, bool isAccepted)
     {
-        throw new NotImplementedException();
+        var negotiation = await _negotiationRepository.GetNegotiationByIdAsync(negotiationId);
+        
+        if (negotiation.Status != NegotiationStatus.Pending)
+            throw new InvalidOperationException("Only pending negotiations can be finalized");
+            
+        negotiation.Status = isAccepted ? NegotiationStatus.Accepted : NegotiationStatus.Rejected;
+        
+        if (!isAccepted)
+            negotiation.ExpirationDate = DateTime.UtcNow.AddDays(7);
+            
+        await _negotiationRepository.UpdateNegotiationAsync(negotiation);
+        return negotiation;
     }
 
     public async Task<IEnumerable<Negotiation>> GetPendingNegotiationsAsync()
