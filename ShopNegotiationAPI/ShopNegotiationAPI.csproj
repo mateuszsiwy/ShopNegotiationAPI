@@ -14,6 +14,7 @@
     <ItemGroup>
       <ProjectReference Include="..\ShopNegotiationAPI.Application\ShopNegotiationAPI.Application.csproj" />
       <ProjectReference Include="..\ShopNegotiationAPI.Domain\ShopNegotiationAPI.Domain.csproj" />
+      <ProjectReference Include="..\ShopNegotiationAPI.Infrastructure\ShopNegotiationAPI.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
