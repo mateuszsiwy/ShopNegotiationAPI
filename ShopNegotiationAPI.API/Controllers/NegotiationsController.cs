@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
 using ShopNegotiationAPI.Application.Interfaces.Services;
 using ShopNegotiationAPI.Domain.Models;
+using ShopNegotiationAPI.DTOs;
 
 namespace ShopNegotiationAPI.Controllers;
 
@@ -51,7 +52,7 @@ public class NegotiationsController : ControllerBase
 
     [HttpPut("{id}/respond")]
     [Authorize(Policy = "EmployeesOnly")]
-    public async Task<ActionResult<Negotiation>> RespondToNegotiation(int id, [FromBody] NegotiationResponse response)
+    public async Task<ActionResult<Negotiation>> RespondToNegotiation(int id, [FromBody] ShopNegotiationAPI.DTOs.NegotiationResponse response)
     {
         var negotiation = await _negotiationService.GetNegotiationByIdAsync(id);
         
@@ -60,7 +61,6 @@ public class NegotiationsController : ControllerBase
 
         var result = await _negotiationService.FinalizeNegotiationAsync(id, response.IsAccepted);
         
-        // Update last response date
         result.LastResponseDate = DateTime.UtcNow;
         
         if (response.IsAccepted)

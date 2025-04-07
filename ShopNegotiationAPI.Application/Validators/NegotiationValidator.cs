@@ -1,5 +1,4 @@
-﻿// NegotiationValidator.cs
-using FluentValidation;
+﻿using FluentValidation;
 using ShopNegotiationAPI.Domain.Models;
 
 namespace ShopNegotiationAPI.Application.Validators;

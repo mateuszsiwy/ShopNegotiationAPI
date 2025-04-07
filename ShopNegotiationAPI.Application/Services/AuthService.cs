@@ -1,6 +1,9 @@
-﻿using System.Security.Claims;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using ShopNegotiationAPI.Application.Interfaces.Repositories;
 using ShopNegotiationAPI.Application.Interfaces.Services;
 using ShopNegotiationAPI.Domain.Models;
 
@@ -56,5 +59,10 @@ public class AuthService : IAuthService
     {
         // Implement password verification
         return BCrypt.Net.BCrypt.Verify(password, storedHash);
+    }
+    
+    public async Task RegisterUser(User user)
+    {
+        await _userRepository.AddUser(user);
     }
 }

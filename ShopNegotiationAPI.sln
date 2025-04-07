@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopNegotiationAPI", "ShopNegotiationAPI\ShopNegotiationAPI.csproj", "{7BC689C2-AE93-406E-8193-12B5D96DD317}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopNegotiationAPI.API", "ShopNegotiationAPI.API\ShopNegotiationAPI.API.csproj", "{7BC689C2-AE93-406E-8193-12B5D96DD317}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopNegotiationAPI.Application", "ShopNegotiationAPI.Application\ShopNegotiationAPI.Application.csproj", "{E4531AF6-F3A2-471D-9ACE-C6E48209B0BD}"
 EndProject

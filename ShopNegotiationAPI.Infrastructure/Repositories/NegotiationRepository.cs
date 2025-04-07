@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ShopNegotiationAPI.Application.Exceptions;
 using ShopNegotiationAPI.Application.Interfaces.Repositories;
 using ShopNegotiationAPI.Domain.Models;
