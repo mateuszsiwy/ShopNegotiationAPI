@@ -12,6 +12,7 @@ using ShopNegotiationAPI.Infrastructure.BackgroundServices;
 using ShopNegotiationAPI.Infrastructure.Data;
 using ShopNegotiationAPI.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using ShopNegotiationAPI.Domain.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -98,6 +99,18 @@ app.UseHttpsRedirection();
 
 using (var scope = app.Services.CreateScope())
 {
+    var userManager = scope.ServiceProvider.GetRequiredService<IUserRepository>();
+    var authService = scope.ServiceProvider.GetRequiredService<IAuthService>();
+    var employeeUser = new User
+    {
+        Username = "employee",
+        PasswordHash = BCrypt.Net.BCrypt.HashPassword("password"),
+        Role = "Employee"
+    };
+    if (await userManager.GetByUsername(employeeUser.Username) == null)
+    {
+        await authService.RegisterUser(employeeUser);
+    }
     var initializer = new InitializeDatabase(
         scope.ServiceProvider.GetRequiredService<AppDbContext>(),
         scope.ServiceProvider.GetRequiredService<ILogger<InitializeDatabase>>());

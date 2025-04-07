@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ShopNegotiationAPI.Application.Interfaces.Services;
 using ShopNegotiationAPI.Domain.Models;
+using ShopNegotiationAPI.DTOs;
 
 namespace ShopNegotiationAPI.Controllers;
 
@@ -30,8 +31,15 @@ public class ProductsController : ControllerBase
 
     [HttpPost]
     [Authorize(Policy = "EmployeesOnly")]
-    public async Task<ActionResult<Product>> CreateProduct(Product product)
+    public async Task<ActionResult<Product>> CreateProduct(ProductDTO productDto)
     {
+        var product = new Product
+        {
+            ProductName = productDto.ProductName,
+            Description = productDto.Description,
+            Price = productDto.Price,
+            Quantity = productDto.Quantity
+        };
         var result = await _productService.AddProductAsync(product);
         return CreatedAtAction(nameof(GetProduct), new { id = result.Id }, result);
     }

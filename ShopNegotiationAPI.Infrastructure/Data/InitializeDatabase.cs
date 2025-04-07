@@ -20,7 +20,7 @@ public class InitializeDatabase
             _logger.LogInformation("Database created.");
         else
             _logger.LogInformation("Database already exists.");
-        await ClearDatabaseAsync(); // Clear the database before seeding
+        await ClearDatabaseAsync(); 
         await SeedDataAsync();
     }
 
