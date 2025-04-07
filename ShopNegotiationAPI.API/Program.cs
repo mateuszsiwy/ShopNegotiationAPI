@@ -15,14 +15,12 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop Negotiation API", Version = "v1" });
     
-    // Setup JWT authentication in Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header using the Bearer scheme",
@@ -48,28 +46,22 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Add DbContext
 builder.Services.AddDbContext<AppDbContext>(options => 
     options.UseInMemoryDatabase("ShopNegotiationDb"));
 
-// Register repositories
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<INegotiationRepository, NegotiationRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-// Register services
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<INegotiationService, NegotiationService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-// Add background service
 builder.Services.AddHostedService<ExpiredNegotiationsService>();
 
-// Add validators
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<ProductValidator>();
 
-// Add JWT authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -84,12 +76,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// Configure authorization policies
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("EmployeesOnly", policy => policy.RequireRole("Employee"));
 });
-
+builder.Services.AddLogging(config =>
+{
+    config.AddConsole();
+    config.AddDebug();
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -101,12 +96,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Add initialization for database
 using (var scope = app.Services.CreateScope())
 {
     var initializer = new InitializeDatabase(
-        scope.ServiceProvider.GetRequiredService<AppDbContext>());
-    initializer.Initialize();
+        scope.ServiceProvider.GetRequiredService<AppDbContext>(),
+        scope.ServiceProvider.GetRequiredService<ILogger<InitializeDatabase>>());
+    await initializer.InitializeAsync();
 }
 
 app.UseAuthentication();
