@@ -28,7 +28,7 @@ A RESTful API that allows customers to negotiate prices for products. Built with
 
 ### Authentication
 
-# Emmployee credentials
+#### Emmployee credentials
 Login with these credentials to acquire the JWT Token of an employee.
 ```json
 {
