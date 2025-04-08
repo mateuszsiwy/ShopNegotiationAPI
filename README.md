@@ -251,8 +251,8 @@ Allows a customer to make a counter-offer for a rejected negotiation.
 
 The solution follows a clean architecture approach with the following structure:
 
-- **ShopNegotiationAPI.API**: API controllers and DTOs
-- **ShopNegotiationAPI.Application**: Business logic, interfaces, validators
+- **ShopNegotiationAPI.API**: API controllers, validators and DTOs
+- **ShopNegotiationAPI.Application**: Business logic, interfaces
 - **ShopNegotiationAPI.Domain**: Domain models and entities
 - **ShopNegotiationAPI.Infrastructure**: Data access, repositories, background services
 - **ShopNegotiationAPI.Test**: Unit and integration tests
