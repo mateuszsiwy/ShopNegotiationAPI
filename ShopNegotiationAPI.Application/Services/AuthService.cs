@@ -26,7 +26,6 @@ public class AuthService : IAuthService
         if (user == null)
             return null;
 
-        // Verify password hash
         if (!VerifyPasswordHash(password, user.PasswordHash))
             return null;
 
