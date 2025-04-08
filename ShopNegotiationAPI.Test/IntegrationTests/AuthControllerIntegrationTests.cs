@@ -48,7 +48,6 @@ public class AuthControllerIntegrationTests
             .Setup(service => service.RegisterUser(It.IsAny<User>()))
             .Callback<User>(user => 
             {
-                // This simulates what the actual service would do
                 _context.Users.Add(user);
                 _context.SaveChanges();
             });
