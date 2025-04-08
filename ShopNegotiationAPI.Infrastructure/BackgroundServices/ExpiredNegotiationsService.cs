@@ -47,7 +47,6 @@ public class ExpiredNegotiationsService : BackgroundService
                 }
             }
 
-            // Check every hour
             await Task.Delay(TimeSpan.FromHours(1), stoppingToken);
         }
     }
